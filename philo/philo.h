@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/13 23:32:55 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/14 00:06:34 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h> //지우기!!!!!!!!!!!!!!!!!!!
 
 # define fork_mutex pthread_mutex_t
+# define millisec	u_int64_t
 
 # define FORK	0
 # define EAT	1
@@ -47,8 +48,9 @@ typedef struct s_philo
 }	t_philo;
 
 int	ft_atoi(char *str);
-u_int64_t	get_time(void);
-u_int64_t	get_gap(u_int64_t start);
+millisec	get_time(void);
+millisec	get_gap(millisec start);
+void	timer(millisec start, millisec gap);
 
 void	parsing(int ac, char **av, t_info *info);
 

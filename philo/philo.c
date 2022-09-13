@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/13 23:43:05 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/13 23:50:49 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ void	philo(t_info *info, t_philo *philos)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 		}
 	}
-	//printf("before %lld \n", get_time());
-	usleep(info->time_eat / 2);
-	//printf("after %lld \n", get_time());
+	usleep((info->time_eat / 2) * 1000);
 	i = -1;
 	while (++i < info->num)
 	{

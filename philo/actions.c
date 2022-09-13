@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:09:18 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/13 23:38:56 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/13 23:58:38 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_lock((philo->right));
 	print_action(FORK, philo->info->start_time, philo->num);
 	philo->last_eat = get_time();
-	usleep(philo->info->time_eat);
+	timer(philo->info->start_time, philo->info->time_eat);
 	print_action(EAT, philo->info->start_time, philo->num);
 	pthread_mutex_unlock((philo->left));
 	pthread_mutex_unlock((philo->right));
@@ -42,6 +42,6 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	print_action(SLEEP, philo->info->start_time, philo->num);
-	usleep(philo->info->time_sleep);
+	timer(philo->info->start_time, philo->info->time_sleep);
 	print_action(THINK, philo->info->start_time, philo->num);
 }
