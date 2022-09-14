@@ -6,16 +6,16 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/13 21:20:00 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/14 12:49:01 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = 	parsing.c			\
-		philo.c				\
+SRCS = 	philo.c				\
 		actions.c			\
+		actions_utils.c		\
 		initialization.c	\
 		utils/ft_atoi.c 	\
 		utils/manage_time.c

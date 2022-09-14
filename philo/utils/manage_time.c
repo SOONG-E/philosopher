@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 00:07:25 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/14 13:12:10 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ millisec	get_gap(millisec start)
 
 void	timer(millisec start, millisec gap)
 {
-	printf("before %lld\n", get_time());
 	while (get_gap(start) < gap)
 		usleep(100);
-	printf("after %lld\n", get_time());
 }
