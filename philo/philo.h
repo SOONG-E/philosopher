@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 16:38:27 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/14 19:59:27 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_info
 	int				required_eat;
 	int				full_philos;
 	pthread_mutex_t	writing;
+	pthread_mutex_t	printing;
 	millisec		start_time;
 	int				who_died;
 }	t_info;
@@ -58,7 +59,7 @@ void	parsing(int ac, char **av, t_info *info);
 
 t_philo		*setting_philo(t_info *info);
 
-void	print_action(int action, u_int64_t start, int num);
+void	print_action(int action, u_int64_t start, int num, pthread_mutex_t mutex);
 
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);

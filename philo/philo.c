@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 17:28:11 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/14 19:55:26 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	philo(t_info *info, t_philo *philos)
 		if (!(i % 2))
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	usleep((info->time_eat / 2) * 1000);
+	usleep((info->time_eat *2 / 3) * 1000);
 	i = -1;
 	while (++i < info->num)
 	{
@@ -85,7 +85,7 @@ int	main(int ac, char **av)
 	t_info info;
 	t_philo		*philos;
 
-	if (ac < 5)
+	if (5 > ac || ac > 6)
 		return (-1);
 	parsing(ac, av, &info);
 	philos = setting_philo(&info);
