@@ -6,12 +6,12 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/15 13:56:49 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/15 19:20:29 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 SRCS = 	philo.c				\
 		actions.c			\
@@ -19,7 +19,7 @@ SRCS = 	philo.c				\
 		initialization.c	\
 		utils/ft_atoi.c 	\
 		utils/manage_time.c	\
-		utils/manage_mutex.c
+	#	utils/manage_mutex.c
 
 NAME = philo
 
@@ -30,7 +30,7 @@ RM = rm -rf
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@

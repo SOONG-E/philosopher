@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:39:48 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 19:24:58 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_philo	*init_philo(t_info *info, fork_mutex *forks)
 		philos[i].left = &(forks[(i + 1) % info->num]);
 		philos[i].right = &(forks[i]);
 		philos[i].info = info;
+		pthread_mutex_init(&philos[i].schedule_protector, 0);
+		pthread_mutex_init(&philos[i].checker, 0);
 	}
 	return (philos);
 }

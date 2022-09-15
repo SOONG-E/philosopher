@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:39:38 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 19:23:44 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ typedef struct s_philo
 	int				num;
 	millisec		last_eating;
 	int				amount_eat;
-	fork_mutex	*left;
-	fork_mutex	*right;
+	pthread_mutex_t	schedule_protector;
+	pthread_mutex_t	checker;
+	fork_mutex		*left;
+	fork_mutex		*right;
 	struct s_info	*info;
 }	t_philo;
 
