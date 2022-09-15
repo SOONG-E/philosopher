@@ -6,12 +6,12 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/14 12:49:01 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/15 19:17:03 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 SRCS = 	philo.c				\
 		actions.c			\
@@ -29,7 +29,7 @@ RM = rm -rf
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
