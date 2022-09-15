@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 19:55:26 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 19:28:44 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	*philos_routine(void	*arg)
 	philo = (t_philo *)arg;
 	while(1)
 	{
+		pthread_mutex_lock(&(philo->checker));
 		if (philo->amount_eat == philo->info->required_eat)
 			++(philo->info->full_philos);
+		pthread_mutex_unlock(&(philo->checker));
 		eating(philo);
 		sleeping(philo);
 	}
@@ -30,27 +32,30 @@ void	*philos_routine(void	*arg)
 
 void	monitoring(t_info *info, t_philo *philos)
 {
-	if (info->required_eat)
+	while (checking_all(philos) >= 0)
 	{
-		while (1)
-		{
-			if (info->full_philos == info->num)
-				break ;
-			if (info->who_died)
-				break ;
-			checking_all(philos);
-		}
+		if (info->required_eat && info->full_philos == info->num)
+			break ;
 	}
-	else
-	{
-		while (1)
-		{
-			if (info->who_died)
-				break ;
-			checking_all(philos);
-		}
-	}
-	exit(1);
+	//destroy_mutex(info, philos);
+	// if (info->required_eat)
+	// {
+	// 	while (1)
+	// 	{
+	// 		if (info->full_philos == info->num)
+	// 			break ;
+	// 		if (checking_all(philos) < 0)
+	// 			break ;
+	// 	}
+	// }
+	// else
+	// {
+	// 	while (1)
+	// 	{
+	// 		if (checking_all(philos) < 0)
+	// 			break ;
+	// 	}
+	// }
 }
 
 void	philo(t_info *info, t_philo *philos)
@@ -77,7 +82,7 @@ void	philo(t_info *info, t_philo *philos)
 	monitoring(info, philos);
 	i = -1;
 	while (++i < info->num)
-		pthread_join(chairs[i], 0);
+		pthread_detach(chairs[i]);
 }
 
 int	main(int ac, char **av)
@@ -87,7 +92,11 @@ int	main(int ac, char **av)
 
 	if (5 > ac || ac > 6)
 		return (-1);
-	parsing(ac, av, &info);
+	if (parsing(ac, av, &info) < 0)
+		return (-1);
 	philos = setting_philo(&info);
+	if (!philos)
+		return (-1);
 	philo(&info, philos);
+	return (0);
 }

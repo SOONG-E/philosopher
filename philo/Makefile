@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/15 19:17:03 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/15 19:47:16 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCS = 	philo.c				\
 		actions_utils.c		\
 		initialization.c	\
 		utils/ft_atoi.c 	\
-		utils/manage_time.c
+		utils/manage_time.c	\
+	#	utils/manage_mutex.c
 
 NAME = philo
 
