@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 19:28:44 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 20:12:42 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	*philos_routine(void	*arg)
 	while(1)
 	{
 		pthread_mutex_lock(&(philo->checker));
+		pthread_mutex_lock(&(philo->info->writing));
 		if (philo->amount_eat == philo->info->required_eat)
 			++(philo->info->full_philos);
+		pthread_mutex_unlock(&(philo->info->writing));
 		pthread_mutex_unlock(&(philo->checker));
 		eating(philo);
 		sleeping(philo);
@@ -34,8 +36,10 @@ void	monitoring(t_info *info, t_philo *philos)
 {
 	while (checking_all(philos) >= 0)
 	{
+		pthread_mutex_lock(&(info->writing));
 		if (info->required_eat && info->full_philos == info->num)
 			break ;
+		pthread_mutex_unlock(&(info->writing));
 	}
 	//destroy_mutex(info, philos);
 	// if (info->required_eat)
