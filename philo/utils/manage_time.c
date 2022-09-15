@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 13:12:10 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 13:36:49 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ millisec	get_gap(millisec start)
 
 void	timer(millisec start, millisec gap)
 {
+	usleep(gap * 700);
 	while (get_gap(start) < gap)
 		usleep(100);
 }

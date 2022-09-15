@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 19:59:27 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 13:39:38 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_info
 	pthread_mutex_t	writing;
 	pthread_mutex_t	printing;
 	millisec		start_time;
-	int				who_died;
 }	t_info;
 
 typedef struct s_philo
@@ -50,22 +49,22 @@ typedef struct s_philo
 	struct s_info	*info;
 }	t_philo;
 
-int	ft_atoi(char *str);
+int			ft_atoi(char *str);
 millisec	get_time(void);
 millisec	get_gap(millisec start);
-void	timer(millisec start, millisec gap);
+void		timer(millisec start, millisec gap);
 
-void	parsing(int ac, char **av, t_info *info);
+int			parsing(int ac, char **av, t_info *info);
 
 t_philo		*setting_philo(t_info *info);
 
-void	print_action(int action, u_int64_t start, int num, pthread_mutex_t mutex);
+void		print_action(int action, u_int64_t start, int num, pthread_mutex_t mutex);
 
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
+void		eating(t_philo *philo);
+void		sleeping(t_philo *philo);
 
-void	checking_dish(t_philo *philo);
-void	checking_alive(t_philo *philo);
-void	checking_all(t_philo *philos);
+void		checking_dish(t_philo *philo);
+int			checking_alive(t_philo *philo);
+int			checking_all(t_philo *philos);
 
 #endif

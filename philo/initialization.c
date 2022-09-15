@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 19:57:39 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/15 13:39:48 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ fork_mutex	*prepare_forks(t_info info)
 	i = -1;
 	forks = (fork_mutex *)malloc(info.num * sizeof(fork_mutex));
 	if (!forks)
-		exit(-1);
+		return (0);	
 	while (++i < info.num)
 		pthread_mutex_init(&forks[i], 0);
 	return (forks);
@@ -34,7 +34,7 @@ t_philo	*init_philo(t_info *info, fork_mutex *forks)
 
 	philos = (t_philo *)malloc(info->num * sizeof(t_philo));
 	if (!philos)
-		exit(-1);
+		return (0);
 	i = -1;
 	while (++i < info->num)
 	{
@@ -53,11 +53,15 @@ t_philo		*setting_philo(t_info *info)
 	t_philo		*philos;
 
 	forks = prepare_forks(*info);
+	if (!forks)
+		return (0);
 	philos = init_philo(info, forks);
+	if (!philos)
+		return (0);
 	return (philos);
 }
 
-void	parsing(int ac, char **av, t_info *info)
+int	parsing(int ac, char **av, t_info *info)
 {
 	info->num = ft_atoi(av[1]);
 	info->time_die = ft_atoi(av[2]);
@@ -69,9 +73,9 @@ void	parsing(int ac, char **av, t_info *info)
 		info->required_eat = 0;
 	if (info->num < 0 || info->time_die < 0 ||info->time_eat < 0
 		|| info->time_sleep < 0 || info->required_eat < 0)
-		exit(-1);
+		return (-1);
 	info->full_philos = 0;
 	pthread_mutex_init(&(info->writing), 0);
 	pthread_mutex_init(&(info->printing), 0);
-	info->who_died = 0;
+	return (0);
 }
