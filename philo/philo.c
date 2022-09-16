@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 20:12:42 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/16 13:54:56 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	*philos_routine(void	*arg)
 	while(1)
 	{
 		pthread_mutex_lock(&(philo->checker));
-		pthread_mutex_lock(&(philo->info->writing));
+		pthread_mutex_lock(&(philo->info->info_mutex));
 		if (philo->amount_eat == philo->info->required_eat)
 			++(philo->info->full_philos);
-		pthread_mutex_unlock(&(philo->info->writing));
+		pthread_mutex_unlock(&(philo->info->info_mutex));
 		pthread_mutex_unlock(&(philo->checker));
 		eating(philo);
 		sleeping(philo);
@@ -36,30 +36,14 @@ void	monitoring(t_info *info, t_philo *philos)
 {
 	while (checking_all(philos) >= 0)
 	{
-		pthread_mutex_lock(&(info->writing));
+		pthread_mutex_lock(&(info->info_mutex));
 		if (info->required_eat && info->full_philos == info->num)
+		{
+			pthread_mutex_unlock(&(info->info_mutex));
 			break ;
-		pthread_mutex_unlock(&(info->writing));
+		}	
+		pthread_mutex_unlock(&(info->info_mutex));
 	}
-	//destroy_mutex(info, philos);
-	// if (info->required_eat)
-	// {
-	// 	while (1)
-	// 	{
-	// 		if (info->full_philos == info->num)
-	// 			break ;
-	// 		if (checking_all(philos) < 0)
-	// 			break ;
-	// 	}
-	// }
-	// else
-	// {
-	// 	while (1)
-	// 	{
-	// 		if (checking_all(philos) < 0)
-	// 			break ;
-	// 	}
-	// }
 }
 
 void	philo(t_info *info, t_philo *philos)
@@ -87,6 +71,7 @@ void	philo(t_info *info, t_philo *philos)
 	i = -1;
 	while (++i < info->num)
 		pthread_detach(chairs[i]);
+	destroy_mutex(info, philos);
 }
 
 int	main(int ac, char **av)

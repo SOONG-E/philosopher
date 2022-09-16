@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 19:23:44 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/16 13:55:49 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h> //지우기!!!!!!!!!!!!!!!!!!!
 
 # define fork_mutex pthread_mutex_t
-# define millisec	u_int64_t
+# define millisec	unsigned long long
 
 # define FORK	0
 # define EAT	1
@@ -34,8 +34,7 @@ typedef struct s_info
 	millisec		time_sleep;
 	int				required_eat;
 	int				full_philos;
-	pthread_mutex_t	writing;
-	pthread_mutex_t	printing;
+	pthread_mutex_t	info_mutex;
 	millisec		start_time;
 }	t_info;
 
@@ -44,7 +43,6 @@ typedef struct s_philo
 	int				num;
 	millisec		last_eating;
 	int				amount_eat;
-	pthread_mutex_t	schedule_protector;
 	pthread_mutex_t	checker;
 	fork_mutex		*left;
 	fork_mutex		*right;
@@ -68,5 +66,7 @@ void		sleeping(t_philo *philo);
 void		checking_dish(t_philo *philo);
 int			checking_alive(t_philo *philo);
 int			checking_all(t_philo *philos);
+
+void	destroy_mutex(t_info *info, t_philo *philos);
 
 #endif

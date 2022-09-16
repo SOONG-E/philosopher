@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 19:24:58 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/16 13:53:12 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_philo	*init_philo(t_info *info, fork_mutex *forks)
 		philos[i].left = &(forks[(i + 1) % info->num]);
 		philos[i].right = &(forks[i]);
 		philos[i].info = info;
-		pthread_mutex_init(&philos[i].schedule_protector, 0);
 		pthread_mutex_init(&philos[i].checker, 0);
 	}
 	return (philos);
@@ -77,7 +76,6 @@ int	parsing(int ac, char **av, t_info *info)
 		|| info->time_sleep < 0 || info->required_eat < 0)
 		return (-1);
 	info->full_philos = 0;
-	pthread_mutex_init(&(info->writing), 0);
-	pthread_mutex_init(&(info->printing), 0);
+	pthread_mutex_init(&(info->info_mutex), 0);
 	return (0);
 }

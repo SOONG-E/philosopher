@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:09:18 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 19:25:56 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/16 13:53:32 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 void	eating(t_philo *philo)
 {
-	checking_alive(philo);
+	//checking_alive(philo);
 	pthread_mutex_lock(philo->left);
-	print_action(FORK, philo->info->start_time, philo->num, philo->info->printing);
-	checking_alive(philo);
+	print_action(FORK, philo->info->start_time, philo->num, philo->info->info_mutex);
+	//checking_alive(philo);
 	pthread_mutex_lock(philo->right);
-	print_action(FORK, philo->info->start_time, philo->num, philo->info->printing);
-	print_action(EAT, philo->info->start_time, philo->num, philo->info->printing);
-	pthread_mutex_lock(&(philo->schedule_protector));
+	print_action(FORK, philo->info->start_time, philo->num, philo->info->info_mutex);
+	print_action(EAT, philo->info->start_time, philo->num, philo->info->info_mutex);
+	pthread_mutex_lock(&(philo->checker));
 	philo->last_eating = get_time();
-	pthread_mutex_unlock(&(philo->schedule_protector));
+	pthread_mutex_unlock(&(philo->checker));
 	timer(get_time(), philo->info->time_eat);
 	checking_dish(philo);
 	pthread_mutex_unlock(philo->left);
@@ -33,9 +33,9 @@ void	eating(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	checking_alive(philo);
-	print_action(SLEEP, philo->info->start_time, philo->num, philo->info->printing);
+	//checking_alive(philo);
+	print_action(SLEEP, philo->info->start_time, philo->num, philo->info->info_mutex);
 	timer(get_time(), philo->info->time_sleep);
-	checking_alive(philo);
-	print_action(THINK, philo->info->start_time, philo->num, philo->info->printing);
+	//checking_alive(philo);
+	print_action(THINK, philo->info->start_time, philo->num, philo->info->info_mutex);
 }
