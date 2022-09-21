@@ -6,13 +6,13 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:36:49 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/21 19:31:16 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <unistd.h>
-#include "../philo.h"
+#include "philo.h"
 
 millisec	get_time(void)
 {
