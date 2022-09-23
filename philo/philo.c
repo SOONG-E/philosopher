@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 19:27:46 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:31:56 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	monitoring(t_philo *philos)
 
 void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 {
-	int			i;
+	int	i;
 
 	chairs = (pthread_t *)malloc((info->num) * sizeof(pthread_t));
 	if (!chairs)
@@ -55,13 +55,13 @@ void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 	}
 	usleep((info->time_eat / 2) * 1000);
 	i = -1;
-	while (i-- > -1)
+	while (++i < info->num)
 	{
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
 	monitoring(philos);
-	while (++i < info->num)
+	while (i-- >= 0)
 		pthread_join(chairs[i], 0);
 }
 
