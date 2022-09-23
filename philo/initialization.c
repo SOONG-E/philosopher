@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/16 13:53:12 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 12:33:18 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	parsing(int ac, char **av, t_info *info)
 		|| info->time_sleep < 0 || info->required_eat < 0)
 		return (-1);
 	info->full_philos = 0;
+	info->who_died = 0;
 	pthread_mutex_init(&(info->info_mutex), 0);
+	pthread_mutex_init(&(info->printing_mutex), 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 13:54:41 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/16 13:53:37 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 12:45:13 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	destroy_mutex(t_info *info, t_philo *philos)
 		pthread_mutex_destroy(philos[i].right);
 	}
 	pthread_mutex_destroy(&(info->info_mutex));
+	pthread_mutex_destroy(&(info->printing_mutex));
 }

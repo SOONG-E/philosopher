@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/16 13:54:56 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 12:50:39 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,30 @@ void	*philos_routine(void	*arg)
 	philo = (t_philo *)arg;
 	while(1)
 	{
-		pthread_mutex_lock(&(philo->checker));
-		pthread_mutex_lock(&(philo->info->info_mutex));
-		if (philo->amount_eat == philo->info->required_eat)
-			++(philo->info->full_philos);
-		pthread_mutex_unlock(&(philo->info->info_mutex));
-		pthread_mutex_unlock(&(philo->checker));
+		checking_dish(philo);
 		eating(philo);
 		sleeping(philo);
 	}
-}
+	return (0);
+}//qksghksrkqt qkerl
 
-void	monitoring(t_info *info, t_philo *philos)
+void	monitoring(t_info *info)
 {
-	while (checking_all(philos) >= 0)
+	while (1)
 	{
 		pthread_mutex_lock(&(info->info_mutex));
-		if (info->required_eat && info->full_philos == info->num)
+		if ((info->required_eat && info->full_philos == info->num) || info->who_died)
 		{
-			pthread_mutex_unlock(&(info->info_mutex));
-			break ;
-		}	
+			pthread_mutex_lock(&(info->printing_mutex));
+			break;
+		}
 		pthread_mutex_unlock(&(info->info_mutex));
+		usleep(1000);
 	}
 }
 
 void	philo(t_info *info, t_philo *philos)
-{
+{ 
 	pthread_t		*chairs; 
 	int				i;
 
@@ -60,17 +57,19 @@ void	philo(t_info *info, t_philo *philos)
 		if (!(i % 2))
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	usleep((info->time_eat *2 / 3) * 1000);
+	usleep((info->time_eat / 2) * 1000);
 	i = -1;
 	while (++i < info->num)
 	{
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	monitoring(info, philos);
+	monitoring(info);
 	i = -1;
-	while (++i < info->num)
+	while (++i < info->num) 
 		pthread_detach(chairs[i]);
+	pthread_mutex_unlock(&(info->info_mutex));
+	pthread_mutex_unlock(&(info->printing_mutex));
 	destroy_mutex(info, philos);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/16 13:55:49 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 12:30:31 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef struct s_info
 	millisec		time_sleep;
 	int				required_eat;
 	int				full_philos;
+	int				who_died;
 	pthread_mutex_t	info_mutex;
+	pthread_mutex_t	printing_mutex;
 	millisec		start_time;
 }	t_info;
 
