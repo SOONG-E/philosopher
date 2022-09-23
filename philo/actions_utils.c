@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 19:24:03 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:24:40 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,13 @@ int	print_action(int action, t_philo *philo, t_info *info)
 		return (-1);
 	}
 	if (action == FORK)
-		printf("%llu %d has taken a fork\n", \
-		get_gap(info->start_time), philo->num + 1);
+		printf("%llu %d has taken a fork\n", get_gap(info->start_time), philo->num + 1);
 	else if (action == EAT)
 		printf("%llu %d is eating\n", get_gap(info->start_time), philo->num + 1);
 	else if (action == SLEEP)
-		printf("%llu %d is sleeping\n", \
-		get_gap(info->start_time), philo->num + 1);
+		printf("%llu %d is sleeping\n", get_gap(info->start_time), philo->num + 1);
 	else if (action == THINK)
-		printf("%llu %d is thinking\n", \
-		get_gap(info->start_time), philo->num + 1);
+		printf("%llu %d is thinking\n", get_gap(info->start_time), philo->num + 1);
 	pthread_mutex_unlock(&(info->info_mutex));
 	return (0);
 }
