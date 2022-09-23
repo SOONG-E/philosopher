@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 15:02:36 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:23:27 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 #include <unistd.h>
 #include "philo.h"
 
-millisec	get_time(void)
+MILLISEC	get_time(void)
 {
-	struct timeval time;
-	
+	struct timeval	time;
+
 	gettimeofday(&time, 0);
 	while (time.tv_usec < 0 || time.tv_sec < 0)
 		gettimeofday(&time, 0);
 	return (((u_int64_t)time.tv_sec * 1000 + (u_int64_t)time.tv_usec / 1000));
 }
 
-millisec	get_gap(millisec start)
+MILLISEC	get_gap(MILLISEC start)
 {
-	millisec	now;
-	
+	MILLISEC	now;
+
 	now = get_time();
 	return (now - start);
 }
 
-int	timer(millisec start, millisec gap, t_philo *philo)
+int	timer(MILLISEC start, MILLISEC gap, t_philo *philo)
 {
 	usleep(gap * 700);
 	while (get_gap(start) < gap)

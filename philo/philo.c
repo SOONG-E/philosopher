@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 18:24:27 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:21:17 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ void	*philos_routine(void	*arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	while(1)
+	while (!someone_dead(philo->info))
 	{
-		if (eating(philo) == -1)
-			return (0);
-		if (sleeping(philo) < 0)
-			return (0);
+		eating(philo);
+		sleeping(philo);
 	}
 	return (0);
 }
@@ -38,12 +36,13 @@ void	monitoring(t_philo *philos)
 	}
 }
 
-void	philo(t_info *info, t_philo *philos)
+void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 {
-	pthread_t		*chairs; 
-	int				i;
+	int			i;
 
 	chairs = (pthread_t *)malloc((info->num) * sizeof(pthread_t));
+	if (!chairs)
+		return ;
 	i = -1;
 	info->start_time = get_time();
 	while (++i < info->num)
@@ -56,24 +55,21 @@ void	philo(t_info *info, t_philo *philos)
 	}
 	usleep((info->time_eat / 2) * 1000);
 	i = -1;
-	while (++i < info->num)
+	while (i-- > -1)
 	{
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
 	monitoring(philos);
-	i = -1;
 	while (++i < info->num)
-		//pthread_join(chairs[i], 0);
-		pthread_detach(chairs[i]);
-	destroy_mutex(info, philos);
-	free_all(info, philos);
+		pthread_join(chairs[i], 0);
 }
 
 int	main(int ac, char **av)
 {
 	t_info		info;
 	t_philo		*philos;
+	pthread_t	*chairs;
 
 	if (5 > ac || ac > 6)
 		return (-1);
@@ -82,6 +78,8 @@ int	main(int ac, char **av)
 	philos = setting_philo(&info);
 	if (!philos)
 		return (-1);
-	philo(&info, philos);
+	chairs = 0;
+	philo(&info, philos, chairs);
+	free_all(&info, philos, chairs);
 	return (0);
 }

@@ -6,28 +6,28 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:51:10 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:23:06 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-fork_mutex	*prepare_forks(t_info info)
+FORK_MUTEX	*prepare_forks(t_info info)
 {
-	fork_mutex *forks;
-	int	i;
-	
+	FORK_MUTEX	*forks;
+	int			i;
+
 	i = -1;
-	forks = (fork_mutex *)malloc(info.num * sizeof(fork_mutex));
+	forks = (FORK_MUTEX *)malloc(info.num * sizeof(FORK_MUTEX));
 	if (!forks)
-		return (0);	
+		return (0);
 	while (++i < info.num)
 		pthread_mutex_init(&forks[i], 0);
 	return (forks);
 }
 
-t_philo	*init_philo(t_info *info, fork_mutex *forks)
+t_philo	*init_philo(t_info *info, FORK_MUTEX *forks)
 {
 	t_philo		*philos;
 	int			i;
@@ -47,7 +47,7 @@ t_philo	*init_philo(t_info *info, fork_mutex *forks)
 	return (philos);
 }
 
-t_philo		*setting_philo(t_info *info)
+t_philo	*setting_philo(t_info *info)
 {
 	t_philo		*philos;
 
@@ -73,7 +73,7 @@ int	parsing(int ac, char **av, t_info *info)
 		info->required_eat = ft_atoi(av[5]);
 	else
 		info->required_eat = 0;
-	if (info->num < 0 || info->time_die < 0 ||info->time_eat < 0
+	if (info->num < 0 || info->time_die < 0 || info->time_eat < 0
 		|| info->time_sleep < 0 || info->required_eat < 0)
 		return (-1);
 	info->full_philos = 0;
