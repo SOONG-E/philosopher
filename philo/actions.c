@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:09:18 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:21:04 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 18:24:09 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	eating(t_philo *philo)
 	if (timer(get_time(), philo->info->time_eat, philo) < 0)
 		return (-1);
 	if (checking_dish(philo) < 0)
-		return (-1);
+		return (-2);
 	return (0);
 }
 
@@ -41,7 +41,6 @@ int	sleeping(t_philo *philo)
 		return (-1);
 	if (timer(get_time(), philo->info->time_sleep, philo) < 0)
 		return (-1);
-	checking_alive(philo);
 	if (print_action(THINK, philo) < 0)
 		return (-1);
 	return (0);

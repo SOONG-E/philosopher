@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:21:40 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 18:24:27 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philos_routine(void	*arg)
 	philo = (t_philo *)arg;
 	while(1)
 	{
-		if (eating(philo) < 0)
+		if (eating(philo) == -1)
 			return (0);
 		if (sleeping(philo) < 0)
 			return (0);
@@ -48,7 +48,9 @@ void	philo(t_info *info, t_philo *philos)
 	info->start_time = get_time();
 	while (++i < info->num)
 	{
+		pthread_mutex_lock(&(info->philo_mutex));
 		philos[i].last_eating = info->start_time;
+		pthread_mutex_unlock(&(info->philo_mutex));
 		if (!(i % 2))
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
@@ -62,10 +64,10 @@ void	philo(t_info *info, t_philo *philos)
 	monitoring(philos);
 	i = -1;
 	while (++i < info->num)
-		//pthread_detach(chairs[i]);
-		pthread_join(chairs[i], 0);
-	//if (info->end_flag == 1)
-	//	pthread_mutex_unlock(&(info->info_mutex));
+		//pthread_join(chairs[i], 0);
+		pthread_detach(chairs[i]);
+	destroy_mutex(info, philos);
+	free_all(info, philos);
 }
 
 int	main(int ac, char **av)

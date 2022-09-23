@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:17:37 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:44:58 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_info
 	pthread_mutex_t	info_mutex;
 	pthread_mutex_t	philo_mutex;
 	millisec		start_time;
+	fork_mutex		*forks;
 }	t_info;
 
 typedef struct s_philo
@@ -67,5 +68,8 @@ int			sleeping(t_philo *philo);
 int			checking_dish(t_philo *philo);
 int			checking_alive(t_philo *philo);
 int			checking_all(t_philo *philos);
+
+void		destroy_mutex(t_info *info, t_philo *philos);
+void		free_all(t_info *info, t_philo *philos);
 
 #endif

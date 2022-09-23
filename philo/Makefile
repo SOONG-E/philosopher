@@ -6,12 +6,12 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/23 15:00:12 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/23 18:32:45 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -g
 
 SRCS = 	philo.c				\
 		actions.c			\
@@ -19,7 +19,7 @@ SRCS = 	philo.c				\
 		initialization.c	\
 		utils/ft_atoi.c 	\
 		manage_time.c		\
-		manage_mutex.c
+		manage_resource.c
 
 NAME = philo
 

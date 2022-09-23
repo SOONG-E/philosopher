@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:17:52 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:51:10 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,17 @@ t_philo	*init_philo(t_info *info, fork_mutex *forks)
 
 t_philo		*setting_philo(t_info *info)
 {
-	fork_mutex	*forks;
 	t_philo		*philos;
 
-	forks = prepare_forks(*info);
-	if (!forks)
+	info->forks = prepare_forks(*info);
+	if (!info->forks)
 		return (0);
-	philos = init_philo(info, forks);
+	philos = init_philo(info, info->forks);
 	if (!philos)
+	{
+		free(info->forks);
 		return (0);
+	}
 	return (philos);
 }
 
@@ -76,6 +78,7 @@ int	parsing(int ac, char **av, t_info *info)
 		return (-1);
 	info->full_philos = 0;
 	info->end_flag = 0;
+	info->forks = 0;
 	pthread_mutex_init(&(info->info_mutex), 0);
 	pthread_mutex_init(&(info->philo_mutex), 0);
 	return (0);
