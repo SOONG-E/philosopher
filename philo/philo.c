@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 16:27:21 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:21:40 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	*philos_routine(void	*arg)
 	return (0);
 }
 
-/*
 void	monitoring(t_philo *philos)
 {
 	while (1)
@@ -38,7 +37,7 @@ void	monitoring(t_philo *philos)
 			break ;
 	}
 }
-*/
+
 void	philo(t_info *info, t_philo *philos)
 {
 	pthread_t		*chairs; 
@@ -60,7 +59,7 @@ void	philo(t_info *info, t_philo *philos)
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	//monitoring(philos);
+	monitoring(philos);
 	i = -1;
 	while (++i < info->num)
 		//pthread_detach(chairs[i]);

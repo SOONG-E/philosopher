@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:05:27 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:20:44 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,18 @@ int	checking_alive(t_philo *philo)
 {
 	if (someone_dead(philo->info) < 0)
 		return (-1);
+	pthread_mutex_lock(&(philo->info->philo_mutex));
 	if (get_time() - philo->last_eating > philo->info->time_die)
 	{
+		pthread_mutex_unlock(&(philo->info->philo_mutex));
 		print_action(DIE, philo);
 		pthread_mutex_lock(&(philo->info->info_mutex));
 		philo->info->end_flag = 1;
 		pthread_mutex_unlock(&(philo->info->info_mutex));
 		return (-1);
 	}
+	else
+		pthread_mutex_unlock(&(philo->info->philo_mutex));
 	return (0);
 }
 
@@ -65,7 +69,7 @@ int	checking_all(t_philo *philos)
 	i = -1;
 	while (++i < philos[0].info->num)
 	{
-		if (someone_dead((&philos[i])->info) < 0)
+		if (checking_alive((&philos[i])) < 0)
 			return (-1);	
 	}
 	return (0);

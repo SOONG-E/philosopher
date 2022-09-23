@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 16:55:00 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:17:37 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_info
 	int				full_philos;
 	int				end_flag;
 	pthread_mutex_t	info_mutex;
+	pthread_mutex_t	philo_mutex;
 	millisec		start_time;
 }	t_info;
 

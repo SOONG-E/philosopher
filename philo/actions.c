@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:09:18 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 17:03:42 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:21:04 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	eating(t_philo *philo)
 		return (-1);
 	if (print_action(EAT, philo) < 0)
 		return (-1);
+	pthread_mutex_lock(&(philo->info->philo_mutex));
 	philo->last_eating = get_time();
+	pthread_mutex_unlock(&(philo->info->philo_mutex));
 	if (timer(get_time(), philo->info->time_eat, philo) < 0)
 		return (-1);
 	if (checking_dish(philo) < 0)
