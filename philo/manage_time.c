@@ -6,13 +6,13 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:36:49 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 15:02:36 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <unistd.h>
-#include "../philo.h"
+#include "philo.h"
 
 millisec	get_time(void)
 {
@@ -32,9 +32,14 @@ millisec	get_gap(millisec start)
 	return (now - start);
 }
 
-void	timer(millisec start, millisec gap)
+int	timer(millisec start, millisec gap, t_philo *philo)
 {
 	usleep(gap * 700);
 	while (get_gap(start) < gap)
+	{
+		if (checking_alive(philo) < 0)
+			return (-1);
 		usleep(100);
+	}
+	return (0);
 }

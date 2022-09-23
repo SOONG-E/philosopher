@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:52:25 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 16:27:21 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,41 +21,24 @@ void	*philos_routine(void	*arg)
 	philo = (t_philo *)arg;
 	while(1)
 	{
-		if (philo->amount_eat == philo->info->required_eat)
-			++(philo->info->full_philos);
-		eating(philo);
-		sleeping(philo);
+		if (eating(philo) < 0)
+			return (0);
+		if (sleeping(philo) < 0)
+			return (0);
 	}
+	return (0);
 }
 
-void	monitoring(t_info *info, t_philo *philos)
+/*
+void	monitoring(t_philo *philos)
 {
-	while (checking_all(philos) >= 0)
+	while (1)
 	{
-		if (info->required_eat && info->full_philos == info->num)
+		if (checking_all(philos) < 0)
 			break ;
 	}
-	destroy_mutex(info, philos);
-	// if (info->required_eat)
-	// {
-	// 	while (1)
-	// 	{
-	// 		if (info->full_philos == info->num)
-	// 			break ;
-	// 		if (checking_all(philos) < 0)
-	// 			break ;
-	// 	}
-	// }
-	// else
-	// {
-	// 	while (1)
-	// 	{
-	// 		if (checking_all(philos) < 0)
-	// 			break ;
-	// 	}
-	// }
 }
-
+*/
 void	philo(t_info *info, t_philo *philos)
 {
 	pthread_t		*chairs; 
@@ -70,22 +53,25 @@ void	philo(t_info *info, t_philo *philos)
 		if (!(i % 2))
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	usleep((info->time_eat *2 / 3) * 1000);
+	usleep((info->time_eat / 2) * 1000);
 	i = -1;
 	while (++i < info->num)
 	{
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	monitoring(info, philos);
+	//monitoring(philos);
 	i = -1;
 	while (++i < info->num)
-		pthread_detach(chairs[i]);
+		//pthread_detach(chairs[i]);
+		pthread_join(chairs[i], 0);
+	//if (info->end_flag == 1)
+	//	pthread_mutex_unlock(&(info->info_mutex));
 }
 
 int	main(int ac, char **av)
 {
-	t_info info;
+	t_info		info;
 	t_philo		*philos;
 
 	if (5 > ac || ac > 6)

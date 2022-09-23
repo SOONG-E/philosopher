@@ -6,34 +6,41 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:09:18 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/14 19:59:15 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 17:03:42 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
 
-void	eating(t_philo *philo)
+int	eating(t_philo *philo)
 {
-	checking_alive(philo);
 	pthread_mutex_lock(philo->left);
-	print_action(FORK, philo->info->start_time, philo->num, philo->info->printing);
-	checking_alive(philo);
+	if (print_action(FORK, philo) < 0)
+		return (-1);
 	pthread_mutex_lock(philo->right);
-	print_action(FORK, philo->info->start_time, philo->num, philo->info->printing);
-	print_action(EAT, philo->info->start_time, philo->num, philo->info->printing);
+	if (print_action(FORK, philo) < 0)
+		return (-1);
+	if (print_action(EAT, philo) < 0)
+		return (-1);
 	philo->last_eating = get_time();
-	timer(get_time(), philo->info->time_eat);
-	checking_dish(philo);
-	pthread_mutex_unlock(philo->left);
-	pthread_mutex_unlock(philo->right);
+	if (timer(get_time(), philo->info->time_eat, philo) < 0)
+		return (-1);
+	if (checking_dish(philo) < 0)
+		return (-1);
+	return (0);
 }
 
-void	sleeping(t_philo *philo)
+int	sleeping(t_philo *philo)
 {
+	pthread_mutex_unlock(philo->left);
+	pthread_mutex_unlock(philo->right);
+	if (print_action(SLEEP, philo) < 0)
+		return (-1);
+	if (timer(get_time(), philo->info->time_sleep, philo) < 0)
+		return (-1);
 	checking_alive(philo);
-	print_action(SLEEP, philo->info->start_time, philo->num, philo->info->printing);
-	timer(get_time(), philo->info->time_sleep);
-	checking_alive(philo);
-	print_action(THINK, philo->info->start_time, philo->num, philo->info->printing);
+	if (print_action(THINK, philo) < 0)
+		return (-1);
+	return (0);
 }

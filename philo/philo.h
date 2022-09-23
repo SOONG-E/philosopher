@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/15 13:39:38 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 16:55:00 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h> //지우기!!!!!!!!!!!!!!!!!!!
 
 # define fork_mutex pthread_mutex_t
-# define millisec	u_int64_t
+# define millisec	unsigned long long
 
 # define FORK	0
 # define EAT	1
@@ -34,8 +34,8 @@ typedef struct s_info
 	millisec		time_sleep;
 	int				required_eat;
 	int				full_philos;
-	pthread_mutex_t	writing;
-	pthread_mutex_t	printing;
+	int				end_flag;
+	pthread_mutex_t	info_mutex;
 	millisec		start_time;
 }	t_info;
 
@@ -44,26 +44,26 @@ typedef struct s_philo
 	int				num;
 	millisec		last_eating;
 	int				amount_eat;
-	fork_mutex	*left;
-	fork_mutex	*right;
+	fork_mutex		*left;
+	fork_mutex		*right;
 	struct s_info	*info;
 }	t_philo;
 
 int			ft_atoi(char *str);
 millisec	get_time(void);
 millisec	get_gap(millisec start);
-void		timer(millisec start, millisec gap);
+int			timer(millisec start, millisec gap, t_philo *philo);
 
 int			parsing(int ac, char **av, t_info *info);
 
 t_philo		*setting_philo(t_info *info);
 
-void		print_action(int action, u_int64_t start, int num, pthread_mutex_t mutex);
+int			print_action(int action, t_philo *philo);
 
-void		eating(t_philo *philo);
-void		sleeping(t_philo *philo);
+int			eating(t_philo *philo);
+int			sleeping(t_philo *philo);
 
-void		checking_dish(t_philo *philo);
+int			checking_dish(t_philo *philo);
 int			checking_alive(t_philo *philo);
 int			checking_all(t_philo *philos);
 
