@@ -6,20 +6,22 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/09/24 17:39:03 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/09/24 17:06:26 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
 
-SRCS = 	philo.c				\
+SRCS = 	philo_bonus.c		\
 		actions.c			\
 		actions_utils.c		\
 		initialization.c	\
 		utils/ft_atoi.c 	\
 		manage_time.c		\
-		manage_resource.c
+		manage_resource.c	\
+		philo_routine.c		\
+		manage_processes.c
 
 NAME = philo
 
