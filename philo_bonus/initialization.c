@@ -6,13 +6,14 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/24 16:57:08 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/26 15:57:58 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <string.h>
 
 t_philo *setting_philo(t_info *info)
 {
@@ -29,6 +30,7 @@ t_philo *setting_philo(t_info *info)
 		philos[i].amount_eat = 0;
 		philos[i].info = info;
 		philos[i].forks = info->forks;
+		philos[i].pen = sem_open("writing", O_CREAT, S_IRWXU, 1);
 	}
 	return (philos);
 }
@@ -49,6 +51,7 @@ int	parsing(int ac, char **av, t_info *info)
 	info->philo_id = (int *)malloc(info->num * sizeof(int));
 	if (!info->philo_id)
 		exit(-1);
+	memset(info->philo_id, -1, info->num);
 	info->forks = sem_open("forks", O_CREAT, S_IRWXU, info->num);
 	info->speaker = sem_open("speaker", O_CREAT, S_IRWXU, 1);
 	return (0);

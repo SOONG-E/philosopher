@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/24 17:13:39 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/26 15:58:48 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ void	*philos_routine(void	*arg)
 	}
 }
 
-void	monitoring(t_philo *philo)
+void	monitoring(t_philo *philo, pthread_t chair)
 {
 	while (1)
 	{
 		if (checking_alive(philo) < 0)
+		{
+			pthread_detach(chair);			
 			exit(-1);
+		}
 	}
 }
 
@@ -42,7 +45,7 @@ void	separate_philo(t_philo *philo)
 {
 	pthread_t	chair;
 	
-	philo->pen = sem_open("writing", O_CREAT, S_IRWXU, 1);
+	//philo->pen = sem_open("writing", O_CREAT, S_IRWXU, 1);
 	pthread_create(&chair, 0, philos_routine, philo);
-	monitoring(philo);
+	monitoring(philo, chair);
 }
