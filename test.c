@@ -30,6 +30,6 @@ int main()
 			printf("child %d's pid : %d\n", i, room[i]);
 	}
 	if (room[4] > 0)
-		printf("don't pretend you're a parent! I am! %d\n", getpid());
+		printf("parent again!%d\n", getpid());
 
 }

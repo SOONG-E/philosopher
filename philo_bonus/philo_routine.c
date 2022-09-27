@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/26 15:58:48 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/27 19:57:24 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,8 @@ void	separate_philo(t_philo *philo)
 	pthread_create(&chair, 0, philos_routine, philo);
 	monitoring(philo, chair);
 }
+
+/*
+프로세스 다 생성되기 전까지 잠궈두기
+세마포어 이름 다 달라야함 itoa
+*/
