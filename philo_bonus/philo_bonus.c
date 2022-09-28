@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/26 15:57:34 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/28 14:01:39 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	philo(t_info *info, t_philo *philos)
 	int	i;
 
 	i = -1;
+	sem_wait(info->speaker);
 	info->start_time = get_time();
 	while (++i < info->num)
 	{
@@ -32,6 +33,7 @@ void	philo(t_info *info, t_philo *philos)
 		else if (info->philo_id[i] < 0)
 			exit (-1);
 	}
+	sem_post(info->speaker);
 	if (info->philo_id[info->num - 1] > 0)
 		wait_philos(info);
 }
