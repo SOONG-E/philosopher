@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/26 15:57:58 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/28 13:59:22 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ t_philo *setting_philo(t_info *info)
 		philos[i].amount_eat = 0;
 		philos[i].info = info;
 		philos[i].forks = info->forks;
-		philos[i].pen = sem_open("writing", O_CREAT, S_IRWXU, 1);
+		philos[i].pen_num = ft_itoa(i);
+		sem_unlink(philos[i].pen_num);
+		philos[i].pen = sem_open(philos[i].pen_num, O_CREAT, S_IRWXU, 1);
 	}
 	return (philos);
 }
@@ -52,7 +54,9 @@ int	parsing(int ac, char **av, t_info *info)
 	if (!info->philo_id)
 		exit(-1);
 	memset(info->philo_id, -1, info->num);
+	sem_unlink("forks");
 	info->forks = sem_open("forks", O_CREAT, S_IRWXU, info->num);
+	sem_unlink("speaker");
 	info->speaker = sem_open("speaker", O_CREAT, S_IRWXU, 1);
 	return (0);
 }
