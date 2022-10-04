@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/30 15:39:36 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/04 20:55:11 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int	print_action(int action, t_philo *philo, t_info *info)
 	else if (action == THINK)
 		printf("%llu %d is thinking\n", get_gap(info->start_time), \
 		philo->num + 1);
-	sem_wait(info->speaker);
+	sem_post(info->speaker);
 	return (0);
 }
