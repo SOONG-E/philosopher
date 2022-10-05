@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/04 20:55:11 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/05 13:54:46 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ void	checking_dish(t_philo *philo)
 	else
 		++(philo->amount_eat);
 	if (philo->amount_eat == philo->info->required_eat)
-		exit(-2);
+	{
+		sem_post(philo->forks);
+		sem_post(philo->forks);
+		print_action(SLEEP, philo, philo->info);
+		exit(2);
+	}
 }
 
 int	checking_alive(t_philo *philo)
@@ -30,26 +35,20 @@ int	checking_alive(t_philo *philo)
 	{
 		sem_post(philo->pen);
 		print_action(DIE, philo, philo->info);
-		exit (-1);
+		exit (1);
 	}
 	else
 		sem_post(philo->pen);
 	return (0);
 }
 
-int	print_action(int action, t_philo *philo, t_info *info)
+void	print_action(int action, t_philo *philo, t_info *info)
 {
 	sem_wait(info->speaker);
-	// if (philo->info->end_flag)
-	// {
-	// 	pthread_mutex_unlock(&(info->info_mutex));
-	// 	return (-1);
-	// }
 	if (action == DIE)
 	{
 		printf("%llu %d died\n", get_gap(info->start_time), philo->num + 1);
 		sem_wait(info->speaker);
-		return (-1);
 	}
 	if (action == FORK)
 		printf("%llu %d has taken a fork\n", get_gap(info->start_time), \
@@ -63,5 +62,4 @@ int	print_action(int action, t_philo *philo, t_info *info)
 		printf("%llu %d is thinking\n", get_gap(info->start_time), \
 		philo->num + 1);
 	sem_post(info->speaker);
-	return (0);
 }
