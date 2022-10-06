@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/24 15:23:34 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 16:22:49 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	*philos_routine(void	*arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	while (!someone_dead(philo->info))
+	//while (!someone_dead(philo->info))
+	while (1)
 	{
 		eating(philo);
 		sleeping(philo);
@@ -27,13 +28,24 @@ void	*philos_routine(void	*arg)
 	return (0);
 }
 
-void	monitoring(t_philo *philos)
+void	monitoring(t_philo *philos, pthread_t *chairs)
 {
+	int	i;
+	
 	while (1)
 	{
-		if (checking_all(philos) < 0)
+		if (checking_all(philos) < 0 || someone_dead(philos[0].info))
 			break ;
 	}
+	//if (philos[0].info->num > 1)
+	//{
+		i = -1;
+		while (++i < philos[0].info->num)
+			pthread_detach(chairs[i]);
+	//}
+	//else
+	//	pthread_detach(chairs[0]);
+	
 }
 
 void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
@@ -60,9 +72,7 @@ void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 		if (i % 2)
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	monitoring(philos);
-	while (i-- >= 0)
-		pthread_join(chairs[i], 0);
+	monitoring(philos, chairs);
 }
 
 int	main(int ac, char **av)
