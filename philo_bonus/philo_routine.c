@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/28 14:02:18 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/05 13:48:13 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-void	*philos_routine(void	*arg)
+void	*philos_routine(void *arg)
 {
 	t_philo		*philo;
 

@@ -6,12 +6,12 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/10/06 13:27:22 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/10/06 13:28:16 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread
 
 SRCS = 	philo_bonus.c		\
 		actions.c			\
@@ -24,7 +24,7 @@ SRCS = 	philo_bonus.c		\
 		philo_routine.c		\
 		manage_processes.c
 
-NAME = philo
+NAME = philo_bonus
 
 OBJS = $(SRCS:.c=.o)
 
