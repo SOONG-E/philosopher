@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:24:45 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 19:38:11 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ void	philo(t_info *info, t_philo *philos)
 	while (++i < info->num)
 	{
 		philos[i].last_eating = info->start_time;
-		info->philo_id[i] = fork();
+		info->philo_id[i] = fork(); 
 		if (!(info->philo_id[i]))
 		{
 			separate_philo(&philos[i]);
-			break;
+			break ;
 		}
 		else if (info->philo_id[i] < 0)
 			exit(-1);
 	}
-	sem_post(info->speaker);
+	//sem_post(info->speaker);
 	if (info->philo_id[info->num - 1] > 0)
 		wait_philos(info);
 }

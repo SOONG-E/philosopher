@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 15:55:34 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 16:30:42 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	checking_dish(t_philo *philo)
+void	checking_dish(t_philo *philo)
 {
 	if (!philo->info->required_eat)
-		return (0);
+		return ;
 	else
 		++(philo->amount_eat);
 	if (philo->amount_eat == philo->info->required_eat)
@@ -25,14 +25,11 @@ int	checking_dish(t_philo *philo)
 		pthread_mutex_lock(&(philo->info->info_mutex));
 		++(philo->info->full_philos);
 		if (philo->info->full_philos == philo->info->num)
-		{
-			pthread_mutex_lock(&(philo->info->info_mutex));
 			philo->info->end_flag = 2;
-		}
 		pthread_mutex_unlock(&(philo->info->info_mutex));
-		return (-1);
+		return ;
 	}
-	return (0);
+	return ;
 }
 
 int	someone_dead(t_info *info)
@@ -79,19 +76,19 @@ int	checking_all(t_philo *philos)
 	return (0);
 }
 
-int	print_action(int action, t_philo *philo, t_info *info)
+void	print_action(int action, t_philo *philo, t_info *info)
 {
 	pthread_mutex_lock(&(info->info_mutex));
 	if (philo->info->end_flag)
 	{
 		pthread_mutex_unlock(&(info->info_mutex));
-		return (-1);
+		return ;
 	}
 	if (action == DIE)
 	{
 		printf("%llu %d died\n", get_gap(info->start_time), philo->num + 1);
 		pthread_mutex_unlock(&(info->info_mutex));
-		return (-1);
+		return ;
 	}
 	if (action == FORK)
 		printf("%llu %d has taken a fork\n", get_gap(info->start_time), \
@@ -105,5 +102,5 @@ int	print_action(int action, t_philo *philo, t_info *info)
 		printf("%llu %d is thinking\n", get_gap(info->start_time), \
 		philo->num + 1);
 	pthread_mutex_unlock(&(info->info_mutex));
-	return (0);
+	return ;
 }

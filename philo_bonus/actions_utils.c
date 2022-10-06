@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:39:27 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 20:31:21 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	checking_dish(t_philo *philo)
 	{
 		sem_post(philo->forks);
 		sem_post(philo->forks);
-		print_action(SLEEP, philo, philo->info);
 		exit(2);
 	}
 }
 
 int	checking_alive(t_philo *philo)
 {
+	// (void)philo;
+	// return (0);
 	sem_wait(philo->pen);
 	if (get_time() - philo->last_eating > philo->info->time_die)
 	{

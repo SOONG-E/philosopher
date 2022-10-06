@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:22:38 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 19:31:49 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include <semaphore.h>
 # include <stdlib.h>
-#include <stdio.h> /////////////
-#include <unistd.h> //////////////
+#include <stdio.h>
 
 # define MILLISEC	unsigned long long
 

@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 16:18:59 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 17:19:10 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define FORK_MUTEX pthread_mutex_t
 # define MILLISEC	unsigned long long
-
-# define FORK	0
-# define EAT	1
-# define SLEEP	2
-# define THINK	3
-# define DIE	4
+# define FORK		0
+# define EAT		1
+# define SLEEP		2
+# define THINK		3
+# define DIE		4
 
 typedef struct s_info
 {
@@ -37,7 +35,7 @@ typedef struct s_info
 	pthread_mutex_t	info_mutex;
 	pthread_mutex_t	philo_mutex;
 	MILLISEC		start_time;
-	FORK_MUTEX		*forks;
+	pthread_mutex_t	*forks;
 }	t_info;
 
 typedef struct s_philo
@@ -45,26 +43,26 @@ typedef struct s_philo
 	int				num;
 	MILLISEC		last_eating;
 	int				amount_eat;
-	FORK_MUTEX		*left;
-	FORK_MUTEX		*right;
+	pthread_mutex_t	*left;
+	pthread_mutex_t	*right;
 	struct s_info	*info;
 }	t_philo;
 
 int			ft_atoi(char *str);
 MILLISEC	get_time(void);
 MILLISEC	get_gap(MILLISEC start);
-void			timer(MILLISEC start, MILLISEC gap);
+void		timer(MILLISEC start, MILLISEC gap);
 
 int			parsing(int ac, char **av, t_info *info);
 
 t_philo		*setting_philo(t_info *info);
 
-int			print_action(int action, t_philo *philo, t_info *info);
+void		print_action(int action, t_philo *philo, t_info *info);
 
-int			eating(t_philo *philo);
-int			sleeping(t_philo *philo);
+void		eating(t_philo *philo);
+void		sleeping(t_philo *philo);
 
-int			checking_dish(t_philo *philo);
+void		checking_dish(t_philo *philo);
 int			checking_alive(t_philo *philo);
 int			checking_all(t_philo *philos);
 

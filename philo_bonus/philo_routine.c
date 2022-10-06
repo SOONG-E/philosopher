@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:36:30 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 20:29:55 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philos_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->num % 2)
-		usleep((philo->info->time_eat / 2 ) * 1000);
+		usleep(100);
 	while (1)
 	{
 		eating(philo);
@@ -35,7 +35,6 @@ void	monitoring(t_philo *philo, pthread_t chair)
 	{
 		if (checking_alive(philo) < 0)
 		{
-			//sem_wait(philo->info->speaker);
 			pthread_detach(chair);
 			exit(1);
 		}
@@ -45,15 +44,10 @@ void	monitoring(t_philo *philo, pthread_t chair)
 void	separate_philo(t_philo *philo)
 {
 	pthread_t	chair;
-	
+
 	sem_wait(philo->info->speaker);
 	sem_post(philo->info->speaker);
-	//philo->pen = sem_open("writing", O_CREAT, S_IRWXU, 1);
 	pthread_create(&chair, 0, philos_routine, philo);
+
 	monitoring(philo, chair);
 }
-
-/*
-프로세스 다 생성되기 전까지 잠궈두기
-세마포어 이름 다 달라야함 itoa
-*/

@@ -6,11 +6,12 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 15:22:47 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:22:44 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 20:30:46 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <unistd.h> //////
 
 void	eating(t_philo *philo)
 {
@@ -34,4 +35,4 @@ void	sleeping(t_philo *philo)
 	timer(get_time(), philo->info->time_sleep);
 	print_action(THINK, philo, philo->info);
 }
-	
+ 

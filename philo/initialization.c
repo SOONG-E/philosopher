@@ -6,20 +6,20 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/23 19:27:48 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 17:19:21 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
 
-FORK_MUTEX	*prepare_forks(t_info info)
+pthread_mutex_t	*prepare_forks(t_info info)
 {
-	FORK_MUTEX	*forks;
-	int			i;
+	pthread_mutex_t	*forks;
+	int				i;
 
 	i = -1;
-	forks = (FORK_MUTEX *)malloc(info.num * sizeof(FORK_MUTEX));
+	forks = (pthread_mutex_t *)malloc(info.num * sizeof(pthread_mutex_t));
 	if (!forks)
 		return (0);
 	while (++i < info.num)
@@ -27,7 +27,7 @@ FORK_MUTEX	*prepare_forks(t_info info)
 	return (forks);
 }
 
-t_philo	*init_philo(t_info *info, FORK_MUTEX *forks)
+t_philo	*init_philo(t_info *info, pthread_mutex_t *forks)
 {
 	t_philo		*philos;
 	int			i;

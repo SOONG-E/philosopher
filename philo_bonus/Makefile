@@ -6,12 +6,12 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/10/06 14:26:15 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/10/06 20:19:35 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 SRCS = 	philo_bonus.c		\
 		actions.c			\

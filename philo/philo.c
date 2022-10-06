@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 16:22:49 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 17:15:29 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	*philos_routine(void	*arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	//while (!someone_dead(philo->info))
-	while (1)
+	while (!someone_dead(philo->info))
 	{
 		eating(philo);
 		sleeping(philo);
@@ -31,30 +30,21 @@ void	*philos_routine(void	*arg)
 void	monitoring(t_philo *philos, pthread_t *chairs)
 {
 	int	i;
-	
+
 	while (1)
 	{
-		if (checking_all(philos) < 0 || someone_dead(philos[0].info))
+		if (checking_all(philos) < 0)
 			break ;
 	}
-	//if (philos[0].info->num > 1)
-	//{
-		i = -1;
-		while (++i < philos[0].info->num)
-			pthread_detach(chairs[i]);
-	//}
-	//else
-	//	pthread_detach(chairs[0]);
-	
+	i = -1;
+	while (++i < philos[0].info->num)
+		pthread_join(chairs[i], 0);
 }
 
 void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 {
 	int	i;
 
-	chairs = (pthread_t *)malloc((info->num) * sizeof(pthread_t));
-	if (!chairs)
-		return ;
 	i = -1;
 	info->start_time = get_time();
 	while (++i < info->num)
@@ -65,7 +55,7 @@ void	philo(t_info *info, t_philo *philos, pthread_t *chairs)
 		if (!(i % 2))
 			pthread_create(&chairs[i], 0, philos_routine, &philos[i]);
 	}
-	usleep((info->time_eat / 2) * 1000);
+	usleep(((info->time_eat / 2) * 1000) + 200);
 	i = -1;
 	while (++i < info->num)
 	{
@@ -88,7 +78,9 @@ int	main(int ac, char **av)
 	philos = setting_philo(&info);
 	if (!philos)
 		return (-1);
-	chairs = 0;
+	chairs = (pthread_t *)malloc((info.num) * sizeof(pthread_t));
+	if (!chairs)
+		return (-1);
 	philo(&info, philos, chairs);
 	free_all(&info, philos, chairs);
 	return (0);

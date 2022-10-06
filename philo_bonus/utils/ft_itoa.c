@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:47:27 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/28 13:54:41 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 17:23:40 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	count_len(int num)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (num > 0)
@@ -32,6 +32,8 @@ char	*ft_itoa(int num)
 
 	len = count_len(num);
 	ret = (char *)malloc((len + 1) * sizeof(char));
+	if (!ret)
+		exit(-1);
 	ret[len] = 0;
 	while (--len >= 0)
 	{

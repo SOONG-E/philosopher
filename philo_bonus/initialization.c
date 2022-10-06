@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/09/28 13:59:22 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 20:09:46 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 #include <sys/stat.h>
 #include <string.h>
 
-t_philo *setting_philo(t_info *info)
+t_philo	*setting_philo(t_info *info)
 {
 	t_philo	*philos;
 	int		i;
-		
+
 	philos = (t_philo *)malloc(info->num * sizeof(t_philo));
 	if (!philos)
 		exit(-1);
@@ -32,7 +32,7 @@ t_philo *setting_philo(t_info *info)
 		philos[i].forks = info->forks;
 		philos[i].pen_num = ft_itoa(i);
 		sem_unlink(philos[i].pen_num);
-		philos[i].pen = sem_open(philos[i].pen_num, O_CREAT, S_IRWXU, 1);
+		philos[i].pen = sem_open(philos[i].pen_num, O_CREAT, 0777, 1);
 	}
 	return (philos);
 }
@@ -55,8 +55,8 @@ int	parsing(int ac, char **av, t_info *info)
 		exit(-1);
 	memset(info->philo_id, -1, info->num);
 	sem_unlink("forks");
-	info->forks = sem_open("forks", O_CREAT, S_IRWXU, info->num);
+	info->forks = sem_open("forks", O_CREAT, 0644, info->num);
 	sem_unlink("speaker");
-	info->speaker = sem_open("speaker", O_CREAT, S_IRWXU, 1);
+	info->speaker = sem_open("speaker", O_CREAT, 0644, 1);
 	return (0);
 }

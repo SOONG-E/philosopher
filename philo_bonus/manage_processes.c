@@ -6,16 +6,17 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:14:29 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 14:25:41 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 19:39:24 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include <signal.h>
+#include <unistd.h>
 
 void	kill_them(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < info->num)
@@ -29,10 +30,12 @@ int	get_exitcode(int status)
 
 void	wait_philos(t_info *info)
 {
-	int status;
-	int full_philos;
+	int	status;
+	int	full_philos;
 
 	full_philos = 0;
+	usleep(800);
+	sem_post(info->speaker);
 	waitpid(-1, &status, 0);
 	while (1)
 	{
@@ -44,7 +47,7 @@ void	wait_philos(t_info *info)
 		else if (get_exitcode(status) == 2)
 			++full_philos;
 		if (full_philos == info->num)
-			break;
+			break ;
 		waitpid(-1, &status, 0);
 	}
 }
