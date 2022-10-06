@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:41 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 14:22:38 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <semaphore.h>
 # include <stdlib.h>
+#include <stdio.h> /////////////
+#include <unistd.h> //////////////
 
 # define MILLISEC	unsigned long long
 
@@ -66,7 +68,7 @@ void		sleeping(t_philo *philo);
 
 MILLISEC	get_time(void);
 MILLISEC	get_gap(MILLISEC start);
-void		timer(MILLISEC start, MILLISEC gap, t_philo *philo);
+void		timer(MILLISEC start, MILLISEC gap);
 
 void		free_all(t_info *info, t_philo *philos);
 

@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:46 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 14:39:27 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	checking_alive(t_philo *philo)
 	{
 		sem_post(philo->pen);
 		print_action(DIE, philo, philo->info);
-		exit (1);
+		return (-1);
 	}
 	else
 		sem_post(philo->pen);
@@ -48,7 +48,7 @@ void	print_action(int action, t_philo *philo, t_info *info)
 	if (action == DIE)
 	{
 		printf("%llu %d died\n", get_gap(info->start_time), philo->num + 1);
-		sem_wait(info->speaker);
+		return ;
 	}
 	if (action == FORK)
 		printf("%llu %d has taken a fork\n", get_gap(info->start_time), \

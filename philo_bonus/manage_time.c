@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 19:55:04 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/04 21:05:44 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 14:22:46 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,8 @@ MILLISEC	get_gap(MILLISEC start)
 	return (now - start);
 }
 
-void	timer(MILLISEC start, MILLISEC gap, t_philo *philo)
+void	timer(MILLISEC start, MILLISEC gap)
 {
-	(void)philo;
-	//usleep(gap * 700);
 	while (get_gap(start) < gap)
-	{
-		//if (checking_alive(philo) < 0)
-		//	exit(-1);
 		usleep(100);
-	}
 }

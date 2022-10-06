@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/05 13:48:13 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 14:36:30 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	monitoring(t_philo *philo, pthread_t chair)
 	{
 		if (checking_alive(philo) < 0)
 		{
-			pthread_detach(chair);			
-			exit(-1);
+			//sem_wait(philo->info->speaker);
+			pthread_detach(chair);
+			exit(1);
 		}
 	}
 }
