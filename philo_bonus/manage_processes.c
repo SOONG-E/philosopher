@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:14:29 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 19:39:24 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 14:50:58 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include <signal.h>
 #include <unistd.h>
 
-void	kill_them(t_info *info)
+void	kill_them(t_info *info, int num)
 {
 	int	i;
 
 	i = -1;
-	while (++i < info->num)
+	while (++i < num)
 		kill(info->philo_id[i], 9);
 }
 
@@ -41,7 +41,7 @@ void	wait_philos(t_info *info)
 	{
 		if (get_exitcode(status) == 1)
 		{
-			kill_them(info);
+			kill_them(info, info->num);
 			return ;
 		}
 		else if (get_exitcode(status) == 2)

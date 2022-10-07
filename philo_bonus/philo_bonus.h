@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 19:31:49 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 14:50:40 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char		*ft_itoa(int num);
 int			parsing(int ac, char **av, t_info *info);
 t_philo		*setting_philo(t_info *info);
 
+void		kill_them(t_info *info, int num);
 void		wait_philos(t_info *info);
 
 void		separate_philo(t_philo *philo);
