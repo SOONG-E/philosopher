@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:14:29 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 17:27:10 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 18:07:33 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	wait_philos(t_info *info)
 			return ;
 		}
 		else if (get_exitcode(status) == 2)
-			++(info->full_philos);
+			++(full_philos);
 		if (full_philos == info->num)
 			break ;
 		waitpid(-1, &status, 0);

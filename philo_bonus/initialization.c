@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 17:22:38 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 18:07:07 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	parsing(int ac, char **av, t_info *info)
 	info->philo_id = (int *)malloc(info->num * sizeof(int));
 	if (!info->philo_id)
 		exit(-1);
-	info->full_philos = 0;
 	memset(info->philo_id, -1, info->num);
 	sem_unlink("forks");
 	info->forks = sem_open("forks", O_CREAT, 0644, info->num);
