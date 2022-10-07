@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 17:19:21 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 17:21:31 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ int	parsing(int ac, char **av, t_info *info)
 		info->required_eat = ft_atoi(av[5]);
 	else
 		info->required_eat = 0;
-	if (info->num < 0 || info->time_die < 0 || info->time_eat < 0
-		|| info->time_sleep < 0 || info->required_eat < 0)
+	if (info->num < 0 || info->time_die > (MILLISEC)(ft_strlen(av[2]) * 10)
+		|| info->time_eat > (MILLISEC)(ft_strlen(av[3]) * 10)
+		|| info->time_sleep > (MILLISEC)(ft_strlen(av[4]) * 10)
+		|| info->required_eat < 0)
 		return (-1);
 	info->full_philos = 0;
 	info->end_flag = 0;

@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:42:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 20:29:55 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 15:40:59 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void	separate_philo(t_philo *philo)
 	sem_wait(philo->info->speaker);
 	sem_post(philo->info->speaker);
 	pthread_create(&chair, 0, philos_routine, philo);
-
 	monitoring(philo, chair);
 }

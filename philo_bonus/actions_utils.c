@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 20:31:21 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 16:58:21 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	checking_dish(t_philo *philo)
 
 int	checking_alive(t_philo *philo)
 {
-	// (void)philo;
-	// return (0);
 	sem_wait(philo->pen);
 	if (get_time() - philo->last_eating > philo->info->time_die)
 	{

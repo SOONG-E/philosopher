@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 14:50:40 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 15:59:31 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <semaphore.h>
 # include <stdlib.h>
-#include <stdio.h>
 
 # define MILLISEC	unsigned long long
 
@@ -33,6 +32,7 @@ typedef struct s_info
 	MILLISEC		time_eat;
 	MILLISEC		time_sleep;
 	int				required_eat;
+	int				full_philos;
 	MILLISEC		start_time;
 	sem_t			*forks;
 	sem_t			*speaker;

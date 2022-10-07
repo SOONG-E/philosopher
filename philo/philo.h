@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:33 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/06 17:19:10 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 17:20:15 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 	struct s_info	*info;
 }	t_philo;
 
+int			ft_strlen(char *str);
 int			ft_atoi(char *str);
 MILLISEC	get_time(void);
 MILLISEC	get_gap(MILLISEC start);

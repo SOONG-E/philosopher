@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:14:29 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 14:50:58 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 16:55:08 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	wait_philos(t_info *info)
 	int	full_philos;
 
 	full_philos = 0;
-	usleep(800);
 	sem_post(info->speaker);
 	waitpid(-1, &status, 0);
 	while (1)
@@ -45,7 +44,7 @@ void	wait_philos(t_info *info)
 			return ;
 		}
 		else if (get_exitcode(status) == 2)
-			++full_philos;
+			++(info->full_philos);
 		if (full_philos == info->num)
 			break ;
 		waitpid(-1, &status, 0);
