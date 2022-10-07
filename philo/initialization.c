@@ -6,12 +6,13 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 17:21:31 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 17:57:13 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <limits.h>
 
 pthread_mutex_t	*prepare_forks(t_info info)
 {
@@ -73,9 +74,9 @@ int	parsing(int ac, char **av, t_info *info)
 		info->required_eat = ft_atoi(av[5]);
 	else
 		info->required_eat = 0;
-	if (info->num < 0 || info->time_die > (MILLISEC)(ft_strlen(av[2]) * 10)
-		|| info->time_eat > (MILLISEC)(ft_strlen(av[3]) * 10)
-		|| info->time_sleep > (MILLISEC)(ft_strlen(av[4]) * 10)
+	if (info->num < 0 || info->time_die > INT_MAX
+		|| info->time_eat > INT_MAX
+		|| info->time_sleep > INT_MAX
 		|| info->required_eat < 0)
 		return (-1);
 	info->full_philos = 0;

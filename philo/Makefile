@@ -6,7 +6,7 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/10/07 17:20:25 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/10/07 17:57:07 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRCS = 	philo.c				\
 		actions_utils.c		\
 		initialization.c	\
 		utils/ft_atoi.c 	\
-		utils/ft_strlen.c 	\
 		manage_time.c		\
 		manage_resource.c
 
