@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 17:57:13 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/09 21:04:41 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ int	parsing(int ac, char **av, t_info *info)
 	info->time_eat = ft_atoi(av[3]);
 	info->time_sleep = ft_atoi(av[4]);
 	if (ac == 6)
+	{
 		info->required_eat = ft_atoi(av[5]);
+		if (!(info->required_eat))
+			return (-1);
+	}
 	else
 		info->required_eat = 0;
 	if (info->num < 0 || info->time_die > INT_MAX
