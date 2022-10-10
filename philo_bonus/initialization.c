@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:04:32 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 18:07:07 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/09 21:04:36 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ int	parsing(int ac, char **av, t_info *info)
 	info->time_eat = ft_atoi(av[3]);
 	info->time_sleep = ft_atoi(av[4]);
 	if (ac == 6)
+	{
 		info->required_eat = ft_atoi(av[5]);
+		if (!(info->required_eat))
+			exit(-1);
+	}
 	else
 		info->required_eat = 0;
 	info->philo_id = (int *)malloc(info->num * sizeof(int));
