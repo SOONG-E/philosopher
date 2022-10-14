@@ -6,12 +6,19 @@
 #    By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/12 13:33:02 by yujelee           #+#    #+#              #
-#    Updated: 2022/10/07 15:42:06 by yujelee          ###   ########seoul.kr   #
+#    Updated: 2022/10/13 11:12:56 by yujelee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+.DEFAULT_GOAL := all
+
+CC = $Qcc
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -pthread
+
+Q = @
+ifdef DEBUG
+	Q = 
+endif
 
 SRCS = 	philo_bonus.c		\
 		actions.c			\
@@ -27,25 +34,21 @@ SRCS = 	philo_bonus.c		\
 NAME = philo_bonus
 
 OBJS = $(SRCS:.c=.o)
-
-RM = rm -rf
+DEPS = $(SRCS:.c=.d)
+-include $(DEPS)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
-
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	$(RM) $(OBJS)
+	$Q$(RM) $(OBJS) $(DEPS)
 
 fclean : clean
-	$(RM) $(NAME)
+	$Q$(RM) $(NAME)
 	
 re : 
-	make fclean
-	make all
+	$Q$(MAKE) fclean
+	$Q$(MAKE) all
 
 .PHONY: all clean fclean re
