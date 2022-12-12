@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:38:40 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 18:02:19 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/12/13 07:38:53 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	monitoring(t_philo *philos, pthread_t *chairs)
 		while (++i < philos[0].info->num)
 			pthread_join(chairs[i], 0);
 	}
-	else
-		pthread_detach(chairs[0]);
 }
 
 void	philo(t_info *info, t_philo *philos, pthread_t *chairs)

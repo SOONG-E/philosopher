@@ -6,7 +6,7 @@
 /*   By: yujelee <yujelee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:40:39 by yujelee           #+#    #+#             */
-/*   Updated: 2022/10/07 16:58:21 by yujelee          ###   ########seoul.kr  */
+/*   Updated: 2022/12/13 07:41:00 by yujelee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	checking_dish(t_philo *philo)
 {
 	if (!philo->info->required_eat)
 		return ;
-	else
-		++(philo->amount_eat);
+	++(philo->amount_eat);
 	if (philo->amount_eat == philo->info->required_eat)
 	{
 		sem_post(philo->forks);
